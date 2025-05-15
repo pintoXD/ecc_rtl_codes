@@ -6,10 +6,10 @@ module mrsc_encoder(
 logic [3:0] A_BITS, B_BITS, C_BITS, D_BITS; //Data bits
 logic DI_1, DI_2, DI_3, DI_4; //Diagonal bits
 logic P1, P2, P3, P4; //Parity bits
-logic XA_1, XA_2, XA_3, XA_4; //Check bits A
-logic XB_1, XB_2, XB_3, XB_4; //Check bits B
-logic XC_1, XC_2, XC_3, XC_4; //Check bits C
-logic XD_1, XD_2, XD_3, XD_4; //Check bits D
+logic XA_1_3, XA_2_4; //Check bits A
+logic XB_1_3, XB_2_4; //Check bits B
+logic XC_1_3, XC_2_4; //Check bits C
+logic XD_1_3, XD_2_4; //Check bits D
 
 
 always_comb begin
@@ -32,10 +32,23 @@ always_comb begin
     P3 = A_BITS[2] ^ B_BITS[2] ^ C_BITS[2] ^ D_BITS[2]; // XORing the bits A3 ⊕ B3 ⊕ C3 ⊕ D3 to obtain P3
     P4 = A_BITS[3] ^ B_BITS[3] ^ C_BITS[3] ^ D_BITS[3]; // XORing the bits A4 ⊕ B4 ⊕ C4 ⊕ D4 to obtain P4
 
-
+    // Computing the MRSC's Check bits
+    XA_1_3 = A_BITS[0] ^ A_BITS[2];
+    XA_2_4 = A_BITS[1] ^ A_BITS[3];
+    XB_1_3 = B_BITS[0] ^ B_BITS[2];
+    XB_2_4 = B_BITS[1] ^ B_BITS[3];
+    XC_1_3 = C_BITS[0] ^ C_BITS[2];
+    XC_2_4 = C_BITS[1] ^ C_BITS[3];
+    XD_1_3 = D_BITS[0] ^ D_BITS[2];
+    XD_2_4 = D_BITS[1] ^ D_BITS[3];
 
 end
 
+
+assign encoded_word = {in_word, DI_1, DI_2, 
+                        DI_3, DI_4, P1, P2, P3, P4,
+                        XA_1_3, XA_2_4, XB_1_3, XB_2_4,
+                        XC_1_3, XC_2_4, XD_1_3, XD_2_4};
 
 
 

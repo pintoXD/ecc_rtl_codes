@@ -1,0 +1,6 @@
+xcelium.d/**/*/
+xrun.*
+history
+*.ts
+run.d
+xcelium*.log
