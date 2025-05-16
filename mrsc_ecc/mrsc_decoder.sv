@@ -55,7 +55,12 @@ logic [3:0] rcvd_parity_bits;
 logic [7:0] rcvd_check_bits; 
 
 logic at_least_one_diagonal, at_least_one_parity;
-logic [7:0] at_least_two_check_bits;
+logic [7:0] more_than_one_check_bit;
+logic [7:0] region_1_2_SX_matrix;
+logic [7:0] region_3_SX_matrix;
+logic [7:0] region_1_corrected_bits;
+logic [7:0] region_2_corrected_bits;
+logic [7:0] region_3_corrected_bits;
 
 
 always_comb begin
@@ -121,7 +126,7 @@ always_comb begin
     P3_SYNDROME = P3 ^ rcvd_parity_bits[2];
     P4_SYNDROME = P4 ^ rcvd_parity_bits[0];
 
-    // XORing the locally computed check bits with received check bits to obtain the syndrome bits
+    // XORing the locally computed check bits with received check bits to obtain the check bits syndrome bits
     XA_1_3_SYNDROME = XA_1_3 ^ rcvd_check_bits[7];
     XA_2_4_SYNDROME = XA_2_4 ^ rcvd_check_bits[6];
     XB_1_3_SYNDROME = XB_1_3 ^ rcvd_check_bits[5];
@@ -144,25 +149,107 @@ always_comb begin
     
     at_least_one_diagonal = DI_1_SYNDROME | DI_2_SYNDROME | DI_3_SYNDROME | DI_4_SYNDROME;
     at_least_one_parity = P1_SYNDROME | P2_SYNDROME | P3_SYNDROME | P4_SYNDROME;
-    at_least_two_check_bits = XA_1_3_SYNDROME + XA_2_4_SYNDROME + XB_1_3_SYNDROME + XB_2_4_SYNDROME +
+    more_than_one_check_bit = XA_1_3_SYNDROME + XA_2_4_SYNDROME + XB_1_3_SYNDROME + XB_2_4_SYNDROME +
                               XC_1_3_SYNDROME + XC_2_4_SYNDROME + XD_1_3_SYNDROME + XD_2_4_SYNDROME;
     
+    region_1_2_SX_matrix = {XA_1_3_SYNDROME, XA_2_4_SYNDROME, XB_1_3_SYNDROME, XB_2_4_SYNDROME,
+                              XC_1_3_SYNDROME, XC_2_4_SYNDROME, XD_1_3_SYNDROME, XD_2_4_SYNDROME};
 
-    if (at_least_one_diagonal && at_least_one_parity) begin
+    region_3_SX_matrix = {XA_2_4_SYNDROME, XA_1_3_SYNDROME, XB_2_4_SYNDROME, XB_1_3_SYNDROME,
+                              XC_2_4_SYNDROME, XC_1_3_SYNDROME, XD_2_4_SYNDROME, XD_1_3_SYNDROME};
+
+
+
+    if ((at_least_one_diagonal && at_least_one_parity) || (more_than_one_check_bit > 1))  begin
         // Condition Satisfied: At least one bit from diagon and parity bits is 1
-        if (at_least_two_check_bits >= 2)begin
-            //Condition Satisfied: At least two check bits are 1
+        //      OR
+        // Condition Satisfied: More than one check bit is 1
+            if  ( (DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME) > 
+                  (DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME) ) begin
+                    //Condition Satisfied: Region 1 selected
+                    /* To fix the bits on the Region 1, we need to XOR its bits with the 
+                       bits from region_1_2_SX_matrix.
+                       
+                       I mean, taking the region 1 bit A1, it will be XORed with the Region 1 Matrix
+                       correction bit XA_1_3_SYNDROME. The bit A2 from the same region, will
+                       be XORed with the bit XA_2_4_SYNDROME. And so on.
 
-            if()
+                    */
+                                                 
+                    region_1_corrected_bits[7] = rcvd_data_bits[15] ^ region_1_2_SX_matrix[7]; //A1 ⊕ XA_1_3_SYNDROME
+                    region_1_corrected_bits[6] = rcvd_data_bits[14] ^ region_1_2_SX_matrix[6]; //A2 ⊕ XA_2_4_SYNDROME
+                    region_1_corrected_bits[5] = rcvd_data_bits[11] ^ region_1_2_SX_matrix[5]; //B1 ⊕ XB_1_3_SYNDROME
+                    region_1_corrected_bits[4] = rcvd_data_bits[10] ^ region_1_2_SX_matrix[4]; //B2 ⊕ XB_2_4_SYNDROME
+                    region_1_corrected_bits[3] = rcvd_data_bits[7] ^ region_1_2_SX_matrix[3]; //C1 ⊕ XC_1_3_SYNDROME
+                    region_1_corrected_bits[2] = rcvd_data_bits[6] ^ region_1_2_SX_matrix[2]; //C2 ⊕ XC_2_4_SYNDROME
+                    region_1_corrected_bits[1] = rcvd_data_bits[3] ^ region_1_2_SX_matrix[1]; //D1 ⊕ XD_1_3_SYNDROME
+                    region_1_corrected_bits[0] = rcvd_data_bits[2] ^ region_1_2_SX_matrix[0]; //D2 ⊕ XD_2_4_SYNDROME
+
+                    // To build the decoded corrected word, we replace the received data bits 
+                    // from the region 1 with the corrected bits for this region.
+                    decoded_word = {region_1_corrected_bits[7:6], rcvd_data_bits[13:12], 
+                                    region_1_corrected_bits[5:4], rcvd_data_bits[9:8],
+                                    region_1_corrected_bits[3:2], rcvd_data_bits[5:4],
+                                    region_1_corrected_bits[1:0], rcvd_data_bits[1:0]};
+
+                    error_code = 2'b01; //Error on Region 1 flag;
+                end 
+            else if ( (DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME) < 
+                      (DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME) ) begin
+                    //Condition Satisfied: Region 2 selected
+                    /* To fix the bits on the Region 2, we need to XOR its bits with the 
+                       bits from region_1_2_SX_matrix.
+                    */
+                    region_2_corrected_bits[7] = rcvd_data_bits[13] ^ region_1_2_SX_matrix[7];
+                    region_2_corrected_bits[6] = rcvd_data_bits[12] ^ region_1_2_SX_matrix[6];
+                    region_2_corrected_bits[5] = rcvd_data_bits[9] ^ region_1_2_SX_matrix[5];
+                    region_2_corrected_bits[4] = rcvd_data_bits[8] ^ region_1_2_SX_matrix[4];
+                    region_2_corrected_bits[3] = rcvd_data_bits[5] ^ region_1_2_SX_matrix[3];
+                    region_2_corrected_bits[2] = rcvd_data_bits[4] ^ region_1_2_SX_matrix[2];
+                    region_2_corrected_bits[1] = rcvd_data_bits[1] ^ region_1_2_SX_matrix[1];
+                    region_2_corrected_bits[0] = rcvd_data_bits[0] ^ region_1_2_SX_matrix[0];
+
+                    // To build the decoded corrected word, we replace the received data bits
+                    // from the region 2 with the corrected bits for this region.
+                    decoded_word = {rcvd_data_bits[15:14], region_2_corrected_bits[7:6], 
+                                    rcvd_data_bits[11:10], region_2_corrected_bits[5:4],
+                                    rcvd_data_bits[7:6], region_2_corrected_bits[3:2],
+                                    rcvd_data_bits[3:2], region_2_corrected_bits[1:0]};
+
+                    error_code = 2'b10; //Error on Region 2 flag;
+            end
+            else if ( (DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME) == 
+                      (DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME) ) begin
+                    //Condition Satisfied: Region 3 selected
+                    /* To fix the bits on the Region 3, we need to XOR its bits with the 
+                       bits from region_3_SX_matrix.
+                    */
+
+                    region_3_corrected_bits[7] = rcvd_data_bits[14] ^ region_3_SX_matrix[7];
+                    region_3_corrected_bits[6] = rcvd_data_bits[13] ^ region_3_SX_matrix[6];
+                    region_3_corrected_bits[5] = rcvd_data_bits[10] ^ region_3_SX_matrix[5];
+                    region_3_corrected_bits[4] = rcvd_data_bits[9] ^ region_3_SX_matrix[4];
+                    region_3_corrected_bits[3] = rcvd_data_bits[6] ^ region_3_SX_matrix[3];
+                    region_3_corrected_bits[2] = rcvd_data_bits[5] ^ region_3_SX_matrix[2];
+                    region_3_corrected_bits[1] = rcvd_data_bits[2] ^ region_3_SX_matrix[1];
+                    region_3_corrected_bits[0] = rcvd_data_bits[1] ^ region_3_SX_matrix[0];
+
+                    // To build the decoded corrected word, we replace the received data bits
+                    // from the region 3 with the corrected bits for this region.
+                    decoded_word = {rcvd_data_bits[15], region_3_corrected_bits[7:6], rcvd_data_bits[12],
+                                    rcvd_data_bits[11], region_3_corrected_bits[5:4], rcvd_data_bits[8],
+                                    rcvd_data_bits[7], region_3_corrected_bits[3:2], rcvd_data_bits[4],
+                                    rcvd_data_bits[3], region_3_corrected_bits[1:0], rcvd_data_bits[0]};
+
+                    error_code = 2'b11; //Error on Region 3 flag; 
+            end
             
-        end
+        
     end else begin
-
+        //Condition not satisfied: No correction possible
+        decoded_word = rcvd_data_bits; // No correction possible, so we keep the received data bits
+        error_code = 2'b00; //No correction possible
     end
-
-
-
-
 end
     
 

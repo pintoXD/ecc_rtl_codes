@@ -9,6 +9,8 @@ module mrsc_encoder_tb (
         .encoded_word(out_encoded_word)
     );
 
+
+    logic [3:0] test_vector;
     initial begin
         mock_in_word = 16'b1000000011111010; // Example input
         #10; // Wait for 10 time units
@@ -55,7 +57,9 @@ module mrsc_encoder_tb (
         $display("      %b     %b     %b", out_encoded_word[23:20], out_encoded_word[11:10], out_encoded_word[3:2]);
         $display("      %b     %b     %b", out_encoded_word[19:16], out_encoded_word[9:8], out_encoded_word[1:0]);
 
+        test_vector = {1'b1,1'b0,1'b1,1'b0};
 
+        $display("      Test Vector: %b", test_vector[0]);
     end
 
 
