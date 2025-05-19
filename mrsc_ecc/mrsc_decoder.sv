@@ -3,9 +3,9 @@
     DOI: 10.1145/3109984.3110001
 */
 module mrsc_decoder(
-    input logic [31:0] in_word;
-    output logic [15:0] decoded_word;
-    output logic [1:0] error_code;
+    input logic [31:0] in_word,
+    output logic [15:0] decoded_word,
+    output logic [1:0] error_code
 );
 
 /*
@@ -55,6 +55,8 @@ logic [3:0] rcvd_parity_bits;
 logic [7:0] rcvd_check_bits; 
 
 logic at_least_one_diagonal, at_least_one_parity;
+logic [3:0] diagonal_parity_sum_1_2;
+logic [3:0] diagonal_parity_sum_3_4;
 logic [7:0] more_than_one_check_bit;
 logic [7:0] region_1_2_SX_matrix;
 logic [7:0] region_3_SX_matrix;
@@ -71,10 +73,10 @@ always_comb begin
     rcvd_check_bits = in_word[7:0]; // Assigning the received check bits to the auxiliary variable
 
     // Assigning the input word to the data bits
-    {A_BITS[3], A_BITS[2], A_BITS[1], A_BITS[0]} = in_word[15:12]; // A_BITS = in_word[15:12];
-    {B_BITS[3], B_BITS[2], B_BITS[1], B_BITS[0]} = in_word[11:8];  // B_BITS = in_word[11:8];
-    {C_BITS[3], C_BITS[2], C_BITS[1], C_BITS[0]} = in_word[7:4];   // C_BITS = in_word[7:4];
-    {D_BITS[3], D_BITS[2], D_BITS[1], D_BITS[0]} = in_word[3:0];   // D_BITS = in_word[3:0];
+    {A_BITS[3], A_BITS[2], A_BITS[1], A_BITS[0]} = rcvd_data_bits[15:12]; // A_BITS = rcvd_data_bits[15:12];
+    {B_BITS[3], B_BITS[2], B_BITS[1], B_BITS[0]} = rcvd_data_bits[11:8];  // B_BITS = rcvd_data_bits[11:8];
+    {C_BITS[3], C_BITS[2], C_BITS[1], C_BITS[0]} = rcvd_data_bits[7:4];   // C_BITS = rcvd_data_bits[7:4];
+    {D_BITS[3], D_BITS[2], D_BITS[1], D_BITS[0]} = rcvd_data_bits[3:0];   // D_BITS = rcvd_data_bits[3:0];
 
     // Computing the MRSC's Diagonal bits from the received data bits
     DI_1 = A_BITS[3] ^ B_BITS[2] ^ C_BITS[3] ^ D_BITS[2]; // XORing the bits A1 ⊕ B2 ⊕ C1 ⊕ D2 to obtain DI_1
@@ -158,14 +160,14 @@ always_comb begin
     region_3_SX_matrix = {XA_2_4_SYNDROME, XA_1_3_SYNDROME, XB_2_4_SYNDROME, XB_1_3_SYNDROME,
                               XC_2_4_SYNDROME, XC_1_3_SYNDROME, XD_2_4_SYNDROME, XD_1_3_SYNDROME};
 
-
+    diagonal_parity_sum_1_2 = DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME;
+    diagonal_parity_sum_3_4 = DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME;
 
     if ((at_least_one_diagonal && at_least_one_parity) || (more_than_one_check_bit > 1))  begin
         // Condition Satisfied: At least one bit from diagon and parity bits is 1
         //      OR
         // Condition Satisfied: More than one check bit is 1
-            if  ( (DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME) > 
-                  (DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME) ) begin
+            if  ( diagonal_parity_sum_1_2 > diagonal_parity_sum_3_4 ) begin
                     //Condition Satisfied: Region 1 selected
                     /* To fix the bits on the Region 1, we need to XOR its bits with the 
                        bits from region_1_2_SX_matrix.
@@ -194,8 +196,7 @@ always_comb begin
 
                     error_code = 2'b01; //Error on Region 1 flag;
                 end 
-            else if ( (DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME) < 
-                      (DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME) ) begin
+            else if ( diagonal_parity_sum_1_2 < diagonal_parity_sum_3_4 ) begin
                     //Condition Satisfied: Region 2 selected
                     /* To fix the bits on the Region 2, we need to XOR its bits with the 
                        bits from region_1_2_SX_matrix.
@@ -218,8 +219,7 @@ always_comb begin
 
                     error_code = 2'b10; //Error on Region 2 flag;
             end
-            else if ( (DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME) == 
-                      (DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME) ) begin
+            else if ( diagonal_parity_sum_1_2 == diagonal_parity_sum_3_4 ) begin
                     //Condition Satisfied: Region 3 selected
                     /* To fix the bits on the Region 3, we need to XOR its bits with the 
                        bits from region_3_SX_matrix.
