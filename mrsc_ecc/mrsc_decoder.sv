@@ -1,5 +1,5 @@
 /*
-    Implemntation of the MRSC encoder proposed by SILVA et al, 2017.
+    Implemntation of the MRSC decoder proposed by SILVA et al, 2017.
     DOI: 10.1145/3109984.3110001
 */
 module mrsc_decoder(
