@@ -56,28 +56,28 @@ initial begin
     $display("      %b     %b     %b", {dut.C_BITS[3], dut.C_BITS[2], dut.C_BITS[1], dut.C_BITS[0]}, {dut.P1, dut.P3}, {dut.XC_1_3, dut.XC_2_4});
     $display("      %b     %b     %b", {dut.D_BITS[3], dut.D_BITS[2], dut.D_BITS[1], dut.D_BITS[0]}, {dut.P2, dut.P4}, {dut.XD_1_3, dut.XD_2_4});
 
-    $display("\n      SDI_1234 => %b ⊕ %b = %b", {dut.rcvd_diagonal_bits[3], dut.rcvd_diagonal_bits[1], 
-                                                dut.rcvd_diagonal_bits[2], dut.rcvd_diagonal_bits[0]}, 
-                                                {dut.DI_1, dut.DI_2, dut.DI_3, dut.DI_4}, 
-                                                {dut.DI_1_SYNDROME, dut.DI_2_SYNDROME, dut.DI_3_SYNDROME, dut.DI_4_SYNDROME});
+      $display("\n      SDI_1234 => %b ⊕ %b = %b", {dut.rcvd_diagonal_bits[3], dut.rcvd_diagonal_bits[1], 
+                                                  dut.rcvd_diagonal_bits[2], dut.rcvd_diagonal_bits[0]}, 
+                                                  {dut.DI_1, dut.DI_2, dut.DI_3, dut.DI_4}, 
+                                                  {dut.DI_1_SYNDROME, dut.DI_2_SYNDROME, dut.DI_3_SYNDROME, dut.DI_4_SYNDROME});
 
-    $display("\n      SP_1234 => %b ⊕ %b = %b", {dut.rcvd_parity_bits[3], dut.rcvd_parity_bits[1],
-                                            dut.rcvd_parity_bits[2], dut.rcvd_parity_bits[0]},
-                                            {dut.P1, dut.P2, dut.P3, dut.P4}, 
-                                            {dut.P1_SYNDROME, dut.P2_SYNDROME, dut.P3_SYNDROME, dut.P4_SYNDROME});
+      $display("\n      SP_1234 => %b ⊕ %b = %b", {dut.rcvd_parity_bits[3], dut.rcvd_parity_bits[1],
+                                              dut.rcvd_parity_bits[2], dut.rcvd_parity_bits[0]},
+                                              {dut.P1, dut.P2, dut.P3, dut.P4}, 
+                                              {dut.P1_SYNDROME, dut.P2_SYNDROME, dut.P3_SYNDROME, dut.P4_SYNDROME});
 
-    $display("\n       SX:");
-    $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[7], dut.XA_1_3, dut.XA_1_3_SYNDROME,
-                                                     dut.rcvd_check_bits[6], dut.XA_2_4, dut.XA_2_4_SYNDROME);
+      $display("\n       SX:");
+      $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[7], dut.XA_1_3, dut.XA_1_3_SYNDROME,
+                                                      dut.rcvd_check_bits[6], dut.XA_2_4, dut.XA_2_4_SYNDROME);
 
-    $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[5], dut.XB_1_3, dut.XB_1_3_SYNDROME,
-                                                     dut.rcvd_check_bits[4], dut.XB_2_4, dut.XB_2_4_SYNDROME);
-    
-    $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[3], dut.XC_1_3, dut.XC_1_3_SYNDROME,
-                                                        dut.rcvd_check_bits[2], dut.XC_2_4, dut.XC_2_4_SYNDROME);
-    
-    $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[1], dut.XD_1_3, dut.XD_1_3_SYNDROME,
-                                                        dut.rcvd_check_bits[0], dut.XD_2_4, dut.XD_2_4_SYNDROME);
+      $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[5], dut.XB_1_3, dut.XB_1_3_SYNDROME,
+                                                      dut.rcvd_check_bits[4], dut.XB_2_4, dut.XB_2_4_SYNDROME);
+      
+      $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[3], dut.XC_1_3, dut.XC_1_3_SYNDROME,
+                                                          dut.rcvd_check_bits[2], dut.XC_2_4, dut.XC_2_4_SYNDROME);
+      
+      $display("      %b ⊕ %b  = %b | %b ⊕ %b  = %b ", dut.rcvd_check_bits[1], dut.XD_1_3, dut.XD_1_3_SYNDROME,
+                                                          dut.rcvd_check_bits[0], dut.XD_2_4, dut.XD_2_4_SYNDROME);
 
 
     $display("\n      at_least_one_diagonal = %b", dut.at_least_one_diagonal);

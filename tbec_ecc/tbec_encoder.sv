@@ -1,5 +1,5 @@
 /*
-    Implemntation of the TBEC encoder proposed by SILVA et al, 2017.
+    Implemntation of the TBEC encoder proposed by SILVA et al, 2023.
     DOI: 10.1109/TVLSI.2023.3273085
 */
 
@@ -64,7 +64,7 @@ always_comb begin
 end
 
 
-assign encoded_word = {A_BITS[3], B_BITS[3], C_BITS[3], D_BITS[3], // A1, B1, C1, D1
+assign encoded_word = { A_BITS[3], B_BITS[3], C_BITS[3], D_BITS[3], // A1, B1, C1, D1
                         A_BITS[2], B_BITS[2], C_BITS[2], D_BITS[2], // A2, B2, C2, D2
                         A_BITS[1], B_BITS[1], C_BITS[1], D_BITS[1], // A3, B3, C3, D3
                         A_BITS[0], B_BITS[0], C_BITS[0], D_BITS[0], // A4, B4, C4, D4
