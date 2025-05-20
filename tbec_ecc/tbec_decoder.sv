@@ -1,11 +1,11 @@
 /*
-    Implemntation of the TBEC encoder proposed by SILVA et al, 2023.
+    Implementation of the TBEC encoder proposed by SILVA et al, 2023.
     DOI: 10.1109/TVLSI.2023.3273085
 */
 
 module tbec_decoder (
     input logic [31:0] in_word,
-    output logic [15:0] out_word,
+    output logic [15:0] decoded_word,
     output logic [1:0] error_code
 );
     
@@ -76,7 +76,7 @@ always_comb begin
     {C_BITS[3], C_BITS[2], C_BITS[1], C_BITS[0]} = {rcvd_data_bits[13], rcvd_data_bits[9], 
                                                     rcvd_data_bits[5],  rcvd_data_bits[1]}; // C_BITS from rcvd_data_bits in the order C1,C2,C3,C4;
 
-    {D_BITS[3], D_BITS[2], D_BITS[1], D_BITS[0]} = {rcvd_data_bits[12], rcvd_data_bits[8]
+    {D_BITS[3], D_BITS[2], D_BITS[1], D_BITS[0]} = {rcvd_data_bits[12], rcvd_data_bits[8],
                                                     rcvd_data_bits[4], rcvd_data_bits[0]};   // D_BITS from rcvd_data_bits in the order D1,D2,D3,D4;
 
    // Computing the TBEC's Diagonal bits
@@ -164,7 +164,8 @@ always_comb begin
     diagonal_parity_sum_1_2 = DI_1_SYNDROME + DI_2_SYNDROME + P1_SYNDROME + P2_SYNDROME;
     diagonal_parity_sum_3_4 = DI_3_SYNDROME + DI_4_SYNDROME + P3_SYNDROME + P4_SYNDROME;
     // 20/05/2024 - 11:38 - Stopped here for now
-    if ((at_least_one_diagonal && at_least_one_parity) || (more_than_one_check_bit > 1))  begin
+    if (((at_least_one_diagonal && at_least_one_parity) || (more_than_one_check_bit > 1)) && 
+        !(P3_SYNDROME  && more_than_one_check_bit > 1))  begin
         // Condition Satisfied: At least one bit from diagonal AND parity bits is 1
         //      OR
         // Condition Satisfied: More than one check bit is 1
