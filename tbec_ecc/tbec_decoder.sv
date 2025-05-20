@@ -179,21 +179,21 @@ always_comb begin
 
                     */
                                                  
-                    region_1_corrected_bits[7] = rcvd_data_bits[15] ^ region_1_2_SX_matrix[7]; //A1 ⊕ XA_1_3_SYNDROME
-                    region_1_corrected_bits[6] = rcvd_data_bits[14] ^ region_1_2_SX_matrix[6]; //A2 ⊕ XA_2_4_SYNDROME
-                    region_1_corrected_bits[5] = rcvd_data_bits[11] ^ region_1_2_SX_matrix[5]; //B1 ⊕ XB_1_3_SYNDROME
-                    region_1_corrected_bits[4] = rcvd_data_bits[10] ^ region_1_2_SX_matrix[4]; //B2 ⊕ XB_2_4_SYNDROME
-                    region_1_corrected_bits[3] = rcvd_data_bits[7] ^ region_1_2_SX_matrix[3]; //C1 ⊕ XC_1_3_SYNDROME
-                    region_1_corrected_bits[2] = rcvd_data_bits[6] ^ region_1_2_SX_matrix[2]; //C2 ⊕ XC_2_4_SYNDROME
-                    region_1_corrected_bits[1] = rcvd_data_bits[3] ^ region_1_2_SX_matrix[1]; //D1 ⊕ XD_1_3_SYNDROME
-                    region_1_corrected_bits[0] = rcvd_data_bits[2] ^ region_1_2_SX_matrix[0]; //D2 ⊕ XD_2_4_SYNDROME
+                    region_1_corrected_bits[7] = A_BITS[3] ^ region_1_2_SX_matrix[7]; //A1 ⊕ XA_1_3_SYNDROME
+                    region_1_corrected_bits[6] = A_BITS[2] ^ region_1_2_SX_matrix[6]; //A2 ⊕ XA_2_4_SYNDROME
+                    region_1_corrected_bits[5] = B_BITS[3] ^ region_1_2_SX_matrix[5]; //B1 ⊕ XB_1_3_SYNDROME
+                    region_1_corrected_bits[4] = B_BITS[2] ^ region_1_2_SX_matrix[4]; //B2 ⊕ XB_2_4_SYNDROME
+                    region_1_corrected_bits[3] = C_BITS[3] ^ region_1_2_SX_matrix[3]; //C1 ⊕ XC_1_3_SYNDROME
+                    region_1_corrected_bits[2] = C_BITS[2] ^ region_1_2_SX_matrix[2]; //C2 ⊕ XC_2_4_SYNDROME
+                    region_1_corrected_bits[1] = D_BITS[3] ^ region_1_2_SX_matrix[1]; //D1 ⊕ XD_1_3_SYNDROME
+                    region_1_corrected_bits[0] = D_BITS[2] ^ region_1_2_SX_matrix[0]; //D2 ⊕ XD_2_4_SYNDROME
 
                     // To build the decoded corrected word, we replace the received data bits 
                     // from the region 1 with the corrected bits for this region.
-                    decoded_word = {region_1_corrected_bits[7:6], rcvd_data_bits[13:12], 
-                                    region_1_corrected_bits[5:4], rcvd_data_bits[9:8],
-                                    region_1_corrected_bits[3:2], rcvd_data_bits[5:4],
-                                    region_1_corrected_bits[1:0], rcvd_data_bits[1:0]};
+                    decoded_word = {region_1_corrected_bits[7:6], A_BITS[1:0], 
+                                    region_1_corrected_bits[5:4], B_BITS[1:0],
+                                    region_1_corrected_bits[3:2], C_BITS[1:0],
+                                    region_1_corrected_bits[1:0], D_BITS[1:0]};
 
                     error_code = 2'b01; //Error on Region 1 flag;
                 end 
@@ -202,21 +202,21 @@ always_comb begin
                     /* To fix the bits on the Region 2, we need to XOR its bits with the 
                        bits from region_1_2_SX_matrix.
                     */
-                    region_2_corrected_bits[7] = rcvd_data_bits[13] ^ region_1_2_SX_matrix[7];
-                    region_2_corrected_bits[6] = rcvd_data_bits[12] ^ region_1_2_SX_matrix[6];
-                    region_2_corrected_bits[5] = rcvd_data_bits[9] ^ region_1_2_SX_matrix[5];
-                    region_2_corrected_bits[4] = rcvd_data_bits[8] ^ region_1_2_SX_matrix[4];
-                    region_2_corrected_bits[3] = rcvd_data_bits[5] ^ region_1_2_SX_matrix[3];
-                    region_2_corrected_bits[2] = rcvd_data_bits[4] ^ region_1_2_SX_matrix[2];
-                    region_2_corrected_bits[1] = rcvd_data_bits[1] ^ region_1_2_SX_matrix[1];
-                    region_2_corrected_bits[0] = rcvd_data_bits[0] ^ region_1_2_SX_matrix[0];
+                    region_2_corrected_bits[7] = A_BITS[1] ^ region_1_2_SX_matrix[7];
+                    region_2_corrected_bits[6] = A_BITS[0] ^ region_1_2_SX_matrix[6];
+                    region_2_corrected_bits[5] = B_BITS[1] ^ region_1_2_SX_matrix[5];
+                    region_2_corrected_bits[4] = B_BITS[0] ^ region_1_2_SX_matrix[4];
+                    region_2_corrected_bits[3] = C_BITS[1] ^ region_1_2_SX_matrix[3];
+                    region_2_corrected_bits[2] = C_BITS[0] ^ region_1_2_SX_matrix[2];
+                    region_2_corrected_bits[1] = D_BITS[1] ^ region_1_2_SX_matrix[1];
+                    region_2_corrected_bits[0] = D_BITS[0] ^ region_1_2_SX_matrix[0];
 
                     // To build the decoded corrected word, we replace the received data bits
                     // from the region 2 with the corrected bits for this region.
-                    decoded_word = {rcvd_data_bits[15:14], region_2_corrected_bits[7:6], 
-                                    rcvd_data_bits[11:10], region_2_corrected_bits[5:4],
-                                    rcvd_data_bits[7:6], region_2_corrected_bits[3:2],
-                                    rcvd_data_bits[3:2], region_2_corrected_bits[1:0]};
+                    decoded_word = {A_BITS[3:2], region_2_corrected_bits[7:6], 
+                                    B_BITS[3:2], region_2_corrected_bits[5:4],
+                                    C_BITS[3:2], region_2_corrected_bits[3:2],
+                                    D_BITS[3:2], region_2_corrected_bits[1:0]};
 
                     error_code = 2'b10; //Error on Region 2 flag;
             end
@@ -226,21 +226,21 @@ always_comb begin
                        bits from region_3_SX_matrix.
                     */
 
-                    region_3_corrected_bits[7] = rcvd_data_bits[14] ^ region_3_SX_matrix[7];
-                    region_3_corrected_bits[6] = rcvd_data_bits[13] ^ region_3_SX_matrix[6];
-                    region_3_corrected_bits[5] = rcvd_data_bits[10] ^ region_3_SX_matrix[5];
-                    region_3_corrected_bits[4] = rcvd_data_bits[9] ^ region_3_SX_matrix[4];
-                    region_3_corrected_bits[3] = rcvd_data_bits[6] ^ region_3_SX_matrix[3];
-                    region_3_corrected_bits[2] = rcvd_data_bits[5] ^ region_3_SX_matrix[2];
-                    region_3_corrected_bits[1] = rcvd_data_bits[2] ^ region_3_SX_matrix[1];
-                    region_3_corrected_bits[0] = rcvd_data_bits[1] ^ region_3_SX_matrix[0];
+                    region_3_corrected_bits[7] = A_BITS[2] ^ region_3_SX_matrix[7];
+                    region_3_corrected_bits[6] = A_BITS[1] ^ region_3_SX_matrix[6];
+                    region_3_corrected_bits[5] = B_BITS[2] ^ region_3_SX_matrix[5];
+                    region_3_corrected_bits[4] = B_BITS[1] ^ region_3_SX_matrix[4];
+                    region_3_corrected_bits[3] = C_BITS[2] ^ region_3_SX_matrix[3];
+                    region_3_corrected_bits[2] = C_BITS[1] ^ region_3_SX_matrix[2];
+                    region_3_corrected_bits[1] = D_BITS[2] ^ region_3_SX_matrix[1];
+                    region_3_corrected_bits[0] = D_BITS[1] ^ region_3_SX_matrix[0];
 
                     // To build the decoded corrected word, we replace the received data bits
                     // from the region 3 with the corrected bits for this region.
-                    decoded_word = {rcvd_data_bits[15], region_3_corrected_bits[7:6], rcvd_data_bits[12],
-                                    rcvd_data_bits[11], region_3_corrected_bits[5:4], rcvd_data_bits[8],
-                                    rcvd_data_bits[7], region_3_corrected_bits[3:2], rcvd_data_bits[4],
-                                    rcvd_data_bits[3], region_3_corrected_bits[1:0], rcvd_data_bits[0]};
+                    decoded_word = {A_BITS[3], region_3_corrected_bits[7:6], A_BITS[0],
+                                    B_BITS[3], region_3_corrected_bits[5:4], B_BITS[0],
+                                    C_BITS[3], region_3_corrected_bits[3:2], C_BITS[0],
+                                    D_BITS[3], region_3_corrected_bits[1:0], D_BITS[0]};
 
                     error_code = 2'b11; //Error on Region 3 flag; 
             end
@@ -248,8 +248,8 @@ always_comb begin
         
     end else begin
         //Condition not satisfied: No correction possible
-        decoded_word = rcvd_data_bits; // No correction possible, so we keep the received data bits
-        error_code = 2'b00; //No correction possible
+        decoded_word = {A_BITS, B_BITS, C_BITS, D_BITS}; // No correction possible, so we keep the received data bits
+        error_code = 2'b00; //No correction possible 
     end
 end
 
