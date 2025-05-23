@@ -1,0 +1,366 @@
+(DELAYFILE
+  (SDFVERSION "3.0")
+  (DESIGN "tbec_encoder")
+  (DATE "Fri May 23 16:08:22 2025")
+  (VENDOR "Cadence Design Systems, Inc.")
+  (PROGRAM "Innovus")
+  (VERSION "v21.15-s110_1 ((64bit) 09/23/2022 13:08 (Linux 3.10.0-693.el7.x86_64))")
+  (DIVIDER /)
+  (VOLTAGE 0.900000::0.900000)
+  (PROCESS "1.000000::1.000000")
+  (TEMPERATURE 125.000000::125.000000)
+  (TIMESCALE 1.0 ns)
+
+  (CELL
+    (CELLTYPE  "tbec_encoder")
+    (INSTANCE)
+      (DELAY
+	(ABSOLUTE
+	(INTERCONNECT in_word[15] g257__1617/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[15] g264__2883/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[15] encoded_word[31]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[11] g258__5115/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[11] g269__9315/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[11] encoded_word[30]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[7] g261__7482/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[7] g262__2346/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[7] encoded_word[29]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[3] g265__2802/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[3] g263__6131/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[3] encoded_word[28]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[14] g259__6161/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[14] g269__9315/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[14] encoded_word[27]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[10] g260__4733/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[10] g264__2883/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[10] encoded_word[26]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[6] g267__5122/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[6] g263__6131/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[6] encoded_word[25]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[2] g266__1705/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[2] g262__2346/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[2] encoded_word[24]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[13] g257__1617/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[13] g270__1881/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[13] encoded_word[23]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[9] g258__5115/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[9] g272__9945/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[9] encoded_word[22]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[5] g268__8246/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[5] g261__7482/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[5] encoded_word[21]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[1] g265__2802/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[1] g271__7098/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[1] encoded_word[20]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[12] g259__6161/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[12] g272__9945/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[12] encoded_word[19]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[8] g270__1881/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[8] g260__4733/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[8] encoded_word[18]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[4] g267__5122/A  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT in_word[4] g271__7098/B  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT in_word[4] encoded_word[17]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT in_word[0] g266__1705/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[0] g268__8246/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT in_word[0] encoded_word[16]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g251__6260/Y encoded_word[15]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g252__5107/Y encoded_word[14]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g250__2398/Y encoded_word[13]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g249__4319/Y encoded_word[12]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g255__6783/Y encoded_word[11]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g254__5526/Y encoded_word[10]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g253__8428/Y encoded_word[9]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g256__3680/Y encoded_word[8]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g257__1617/Y encoded_word[7]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g259__6161/Y encoded_word[6]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g258__5115/Y encoded_word[5]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g260__4733/Y encoded_word[4]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g261__7482/Y encoded_word[3]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g267__5122/Y encoded_word[2]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g265__2802/Y encoded_word[1]  (0.001::0.001) (0.001::0.001))
+	(INTERCONNECT g266__1705/Y encoded_word[0]  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g272__9945/Y g252__5107/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g272__9945/Y g256__3680/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g270__1881/Y g249__4319/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g270__1881/Y g256__3680/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g269__9315/Y g250__2398/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g269__9315/Y g255__6783/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g264__2883/Y g251__6260/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g264__2883/Y g255__6783/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g271__7098/Y g252__5107/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g271__7098/Y g254__5526/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g268__8246/Y g249__4319/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g268__8246/Y g254__5526/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g263__6131/Y g250__2398/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g263__6131/Y g253__8428/B  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g262__2346/Y g251__6260/A  (0.000::0.000) (0.000::0.000))
+	(INTERCONNECT g262__2346/Y g253__8428/A  (0.000::0.000) (0.000::0.000))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g250__2398)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.424::0.426) (0.408::0.422))
+	(IOPATH B Y  (0.363::0.387) (0.379::0.380))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g252__5107)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.421::0.423) (0.404::0.419))
+	(IOPATH B Y  (0.363::0.388) (0.379::0.380))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g251__6260)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.425::0.426) (0.409::0.422))
+	(IOPATH B Y  (0.358::0.383) (0.374::0.376))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g249__4319)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.416::0.417) (0.399::0.414))
+	(IOPATH B Y  (0.359::0.384) (0.375::0.377))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g253__8428)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.425::0.426) (0.409::0.422))
+	(IOPATH B Y  (0.363::0.388) (0.380::0.380))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g254__5526)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.416::0.417) (0.399::0.414))
+	(IOPATH B Y  (0.360::0.385) (0.376::0.377))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g255__6783)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.418::0.420) (0.401::0.417))
+	(IOPATH B Y  (0.363::0.387) (0.379::0.380))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g256__3680)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.420::0.422) (0.403::0.418))
+	(IOPATH B Y  (0.363::0.388) (0.379::0.380))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g257__1617)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.512::0.557) (0.515::0.528))
+	(IOPATH B Y  (0.473::0.478) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g265__2802)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.513::0.557) (0.516::0.529))
+	(IOPATH B Y  (0.474::0.479) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g266__1705)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.512::0.557) (0.515::0.528))
+	(IOPATH B Y  (0.473::0.478) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g267__5122)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.512::0.557) (0.515::0.528))
+	(IOPATH B Y  (0.473::0.478) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g268__8246)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.292::0.298) (0.255::0.299))
+	(IOPATH B Y  (0.241::0.257) (0.224::0.241))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g271__7098)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.296::0.302) (0.260::0.303))
+	(IOPATH B Y  (0.246::0.262) (0.228::0.246))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g263__6131)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.299::0.305) (0.264::0.307))
+	(IOPATH B Y  (0.249::0.265) (0.232::0.250))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g270__1881)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.295::0.301) (0.259::0.303))
+	(IOPATH B Y  (0.245::0.261) (0.228::0.245))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g258__5115)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.513::0.557) (0.516::0.529))
+	(IOPATH B Y  (0.473::0.479) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g261__7482)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.513::0.557) (0.516::0.529))
+	(IOPATH B Y  (0.474::0.479) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g260__4733)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.513::0.557) (0.516::0.528))
+	(IOPATH B Y  (0.473::0.479) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "CLKXOR2X8")
+    (INSTANCE  g259__6161)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.513::0.557) (0.516::0.529))
+	(IOPATH B Y  (0.473::0.479) (0.475::0.480))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g269__9315)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.299::0.305) (0.263::0.306))
+	(IOPATH B Y  (0.249::0.264) (0.231::0.249))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g272__9945)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.299::0.305) (0.263::0.306))
+	(IOPATH B Y  (0.249::0.264) (0.231::0.249))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g264__2883)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.294::0.300) (0.257::0.301))
+	(IOPATH B Y  (0.243::0.259) (0.226::0.243))
+	)
+      )
+  )
+
+  (CELL
+    (CELLTYPE  "XNOR2X1")
+    (INSTANCE  g262__2346)
+      (DELAY
+	(ABSOLUTE
+	(IOPATH A Y  (0.299::0.305) (0.265::0.308))
+	(IOPATH B Y  (0.249::0.265) (0.233::0.251))
+	)
+      )
+  )
+)

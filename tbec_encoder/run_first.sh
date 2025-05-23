@@ -1,6 +1,6 @@
 #!/bin/bash
 
-export DESIGNS="tbec_decoder" ;# put here the name of current design
+export DESIGNS="tbec_encoder" ;# put here the name of current design
 export USER=$USER;# put here YOUR user name at this machine
 export PROJECT_DIR=${PWD}
 export BACKEND_DIR=${PROJECT_DIR}/backend
