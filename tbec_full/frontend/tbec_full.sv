@@ -1,0 +1,36 @@
+`timescale 1ns/10ps
+module tbec_full (
+    input logic tbec_clk,
+    input logic [7:0] tbec_addr,
+    input logic [15:0] data_in,
+    input logic mem_we,
+    output logic [15:0] data_out,
+    output logic [1:0] out_error_code
+);
+
+    logic [31:0] tbec_enc_out_word;
+    logic [31:0] tbec_dec_in_word;
+
+    // Instantiate the Encoder
+    tbec_encoder tbec_enc_inst (
+        .in_word(data_in),
+        .encoded_word(tbec_enc_out_word)
+    );
+
+    // Instantiate the Decoder
+    tbec_decoder tbec_dec_inst (
+    .in_word(tbec_dec_in_word),
+    .decoded_word(data_out),
+    .error_code(out_error_code)
+    );
+
+    // Instantiate the Memory
+    tbec_memory dut (
+        .clk(tbec_clk),
+        .we(mem_we),
+        .addr(tbec_addr),
+        .data_in(tbec_enc_out_word),
+        .data_out(tbec_dec_in_word)
+    );
+
+endmodule
