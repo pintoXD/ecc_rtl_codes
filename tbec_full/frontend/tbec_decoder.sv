@@ -79,6 +79,10 @@ always_comb begin
     {D_BITS[3], D_BITS[2], D_BITS[1], D_BITS[0]} = {rcvd_data_bits[12], rcvd_data_bits[8],
                                                     rcvd_data_bits[4], rcvd_data_bits[0]};   // D_BITS from rcvd_data_bits in the order D1,D2,D3,D4;
 
+
+    decoded_word = {A_BITS, B_BITS, C_BITS, D_BITS}; // Initializing the decoded word with the received data bits
+    error_code = 2'b00; // Initializing the error code to 0, meaning no error detected
+
    // Computing the TBEC's Diagonal bits
     DI_1 = A_BITS[3] ^ B_BITS[2] ^ C_BITS[3] ^ D_BITS[2]; // XORing the bits A1 ⊕ B2 ⊕ C1 ⊕ D2 to obtain DI_1
     DI_2 = A_BITS[2] ^ B_BITS[3] ^ C_BITS[2] ^ D_BITS[3]; // XORing the bits A2 ⊕ B1 ⊕ C2 ⊕ D1 to obtain DI_2
@@ -247,11 +251,11 @@ always_comb begin
             end
             
         
-    end else begin
+    end /*else begin
         //Condition not satisfied: No correction possible
         decoded_word = {A_BITS, B_BITS, C_BITS, D_BITS}; // No correction possible, so we keep the received data bits
         error_code = 2'b00; //No correction possible 
-    end
+    end*/
 end
 
 

@@ -61,16 +61,35 @@ always_comb begin
     XD_2_4 = D_BITS[2] ^ D_BITS[0]; // XORing the bits D2 ⊕ D4 to obtain XD_2_4
     
 
+    // encoded_word = { A_BITS[3], B_BITS[3], C_BITS[3], D_BITS[3], // A1, B1, C1, D1
+    //                         A_BITS[2], B_BITS[2], C_BITS[2], D_BITS[2], // A2, B2, C2, D2
+    //                         A_BITS[1], B_BITS[1], C_BITS[1], D_BITS[1], // A3, B3, C3, D3
+    //                         A_BITS[0], B_BITS[0], C_BITS[0], D_BITS[0], // A4, B4, C4, D4
+    //                         DI_1, DI_4, DI_2, DI_3, P1, P4, P2, P3,
+    //                         XA_1_3, XA_2_4, XB_1_3, XB_2_4,
+    //                         XC_1_3, XC_2_4, XD_1_3, XD_2_4};
+
+    encoded_word[31:28] = {in_word[15], in_word[11], in_word[7], in_word[3]}; // A1, B1, C1, D1
+    encoded_word[27:24] = {in_word[14], in_word[10], in_word[6], in_word[2]}; // A2, B2, C2, D2
+    encoded_word[23:20] = {in_word[13], in_word[9], in_word[5], in_word[1]}; // A3, B3, C3, D3
+    encoded_word[19:16] = {in_word[12], in_word[8], in_word[4], in_word[0]}; // A4, B4, C4, D4
+    // Assigning the computed bits to the encoded word
+    encoded_word[15:12] = {DI_1, DI_4, DI_2, DI_3}; // DI_1, DI_4, DI_2, DI_3
+    encoded_word[11:8]  = {P1, P4, P2, P3}; // P1, P4, P2, P3
+    encoded_word[7:6]   = {XA_1_3, XA_2_4}; // XA_1_3, XA_2_4
+    encoded_word[5:4]   = {XB_1_3, XB_2_4}; // XB_1_3, XB_2_4
+    encoded_word[3:2]   = {XC_1_3, XC_2_4}; // XC_1_3, XC_2_4
+    encoded_word[1:0]   = {XD_1_3, XD_2_4}; // XD_1_3, XD_2_4
 end
 
 
-assign encoded_word = { A_BITS[3], B_BITS[3], C_BITS[3], D_BITS[3], // A1, B1, C1, D1
-                        A_BITS[2], B_BITS[2], C_BITS[2], D_BITS[2], // A2, B2, C2, D2
-                        A_BITS[1], B_BITS[1], C_BITS[1], D_BITS[1], // A3, B3, C3, D3
-                        A_BITS[0], B_BITS[0], C_BITS[0], D_BITS[0], // A4, B4, C4, D4
-                        DI_1, DI_4, DI_2, DI_3, P1, P4, P2, P3,
-                        XA_1_3, XA_2_4, XB_1_3, XB_2_4,
-                        XC_1_3, XC_2_4, XD_1_3, XD_2_4};
+// assign encoded_word = { A_BITS[3], B_BITS[3], C_BITS[3], D_BITS[3], // A1, B1, C1, D1
+//                         A_BITS[2], B_BITS[2], C_BITS[2], D_BITS[2], // A2, B2, C2, D2
+//                         A_BITS[1], B_BITS[1], C_BITS[1], D_BITS[1], // A3, B3, C3, D3
+//                         A_BITS[0], B_BITS[0], C_BITS[0], D_BITS[0], // A4, B4, C4, D4
+//                         DI_1, DI_4, DI_2, DI_3, P1, P4, P2, P3,
+//                         XA_1_3, XA_2_4, XB_1_3, XB_2_4,
+//                         XC_1_3, XC_2_4, XD_1_3, XD_2_4};
 
 
 

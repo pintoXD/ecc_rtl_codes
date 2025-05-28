@@ -153,13 +153,12 @@ time_design -pre_cts
 #-----------------------------------------------------------------------------
 # CTS - Clock Concurrent Optimization Flow
 #-----------------------------------------------------------------------------
-#Commented out because TBEC does not have any clock
-# get_db clock_trees
-# # source ../scripts/cts.ccopt
-# source ${BACKEND_DIR}/layout/scripts/cts.ccopt
-# create_clock_tree_spec -out_file ${BACKEND_DIR}/layout/scripts/cts.spec ;# creates a database cts spec
-# get_db clock_trees
-# ccopt_design ;# creates the clock tree #Commented out because TBEC does not have any clock
+get_db clock_trees
+source ../scripts/cts.ccopt
+source ${BACKEND_DIR}/layout/scripts/cts.ccopt
+create_clock_tree_spec -out_file ${BACKEND_DIR}/layout/scripts/cts.spec ;# creates a database cts spec
+get_db clock_trees
+ccopt_design ;# creates the clock tree #Commented out because TBEC does not have any clock
 
 #delete_clock_tree_spec ;# removes the already loaded cts specification (reset_cts_config)
 # look for "CTS constraint violations" in the innovus.log file
