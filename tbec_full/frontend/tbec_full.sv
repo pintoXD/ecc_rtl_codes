@@ -1,18 +1,16 @@
 `timescale 1ns/10ps
 module tbec_full (
-    input logic tbec_clk,
+    input logic clk, rst,
     input logic [7:0] tbec_addr,
     input logic [15:0] data_in,
-    input logic mem_we, rst,
+    input logic mem_we,
     output logic [15:0] data_out,
     output logic [1:0] out_error_code
 );
 
     logic [31:0] tbec_enc_out_word;
-    logic [31:0] tbec_mem_data_in;
-
     logic [31:0] tbec_dec_in_word;
-    logic [31:0] tbec_mem_data_out;
+    logic [31:0] mem_data [7:0];
 
     // Instantiate the Encoder
     tbec_encoder tbec_enc_inst (
@@ -27,34 +25,14 @@ module tbec_full (
     .error_code(out_error_code)
     );
 
-    // Instantiate the Memory
-    tbec_memory dut (
-        .clk(tbec_clk),
-        .we(mem_we),
-        .addr(tbec_addr),
-        .data_in(tbec_mem_data_in),
-        .data_out(tbec_mem_data_out)
-    );
 
-    // always_comb begin
-    //     if (rst) begin
-    //         tbec_mem_data_in = 32'h0; // Reset memory input
-    //         tbec_dec_in_word = 32'h0; // Reset decoder input
-    //     end else begin
-    //         tbec_mem_data_in = tbec_enc_out_word; // Pass encoded word to memory
-    //         tbec_dec_in_word = tbec_mem_data_out; // Pass memory output to decoder
-    //     end
-    // end
-
-    always_ff @(posedge tbec_clk ) begin
-        if (rst) begin
-            tbec_enc_out_word <= 32'h00; // Reset encoder output
-            tbec_dec_in_word <= 32'h00; // Reset decoder input
-        end else begin
-            tbec_mem_data_in <= tbec_enc_out_word; // Pass encoded word to memory
-            tbec_dec_in_word <= tbec_mem_data_out; // Pass memory output to decoder
+    always_ff @(posedge clk) begin
+        if (mem_we) begin
+            mem_data[tbec_addr[7:0]] <= tbec_enc_out_word;
         end
-        
     end
+
+    assign tbec_dec_in_word = mem_data[tbec_addr[7:0]];
+
 
 endmodule

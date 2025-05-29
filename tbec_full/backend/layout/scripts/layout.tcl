@@ -20,7 +20,7 @@ set FRONTEND_DIR $env(FRONTEND_DIR)
 # (!) same as $DESIGNS.tcl (!) MAIN Custom Variables to be used in SDC (constraints file)
 #-----------------------------------------------------------------------------
 set MAIN_CLOCK_NAME clk
-set MAIN_RST_NAME rst_n
+set MAIN_RST_NAME rst
 set BEST_LIB_OPERATING_CONDITION PVT_1P32V_0C
 set WORST_LIB_OPERATING_CONDITION PVT_0P9V_125C
 set period_clk 50.0  ;# (100 ns = 10 MHz) (10 ns = 100 MHz) (50 ns = 20 MHz) (1 ns = 1 GHz)

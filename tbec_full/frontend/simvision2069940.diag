@@ -1,0 +1,71 @@
+*** Message Type: info ***
+When: Thu May 29 08:57:43 AM -03 2025
+SimVision started.
+Version: TOOL:  simvision(64)   24.09-s001
+User: cinovador
+Host: cinova05.lesc.ufc.br
+Platform: Linux/x86_64/4.18.0-553.51.1.el8_10.x86_64
+Started: Thu May 29 08:57:43 AM -03 2025
+Command: /home/tools/cadence/installs/XCELIUM2209/tools.lnx86/simvision/bin/64bit/simvision.exe -connect dc:cinova05.lesc.ufc.br:57393 -64BIT -nocopyright
+Work Directory: /home/cinovador/Documents/pos_fase_2/ecc_rtl_codes/tbec_full/frontend
+ 
+*** Message Type: info ***
+When: Thu May 29 08:57:43 AM -03 2025
+Create browser window: "Design Browser 1"
+ 
+*** Message Type: info ***
+When: Thu May 29 08:57:45 AM -03 2025
+Create console window: "Console"
+ 
+*** Message Type: info ***
+When: Thu May 29 08:57:46 AM -03 2025
+Connect to Simulator
+      Design: worklib.tbec_full_tb:sv
+   Languages: verilog assertion
+   Simulator: XM-Sim
+     Version: TOOL:  xmsim(64)       24.09-s001
+        User: cinovador
+        Host: cinova05.lesc.ufc.br
+Time Started: Thu May 29 08:57:41 AM -03 2025
+  Process ID: 2069885
+   Directory: /home/cinovador/Documents/pos_fase_2/ecc_rtl_codes/tbec_full/frontend
+     Command: xrun -64bit tbec_full.sv tbec_encoder.sv tbec_decoder.sv tbec_full_tb.sv +gui +access+rw
+
+ 
+*** Message Type: info ***
+When: Thu May 29 08:57:46 AM -03 2025
+Create utility window: "Properties"
+ 
+*** Message Type: info ***
+When: Thu May 29 08:58:02 AM -03 2025
+Create waveform window: "Waveform 1"
+ 
+*** Message Type: info ***
+When: Thu May 29 08:58:15 AM -03 2025
+Create memviewer window: "Memory Viewer 1"
+ 
+*** Message Type: error ***
+When: Thu May 29 09:02:30 AM -03 2025
+can't read "state(state)": no such element in array
+can't read "state(state)": no such element in array
+    while executing
+"if { $state(state) == "running" } {
+           _clearValueChanges
+         }"
+    ("!state.kernel" arm line 6)
+    invoked from within
+"switch $info(event) {
+ !state.kernel {
+            # When we start running, clear the value change colors in
+      # the memory viewer widget, in preparation ..."
+    (object "::.memViewer0" method "::MemViewer::_stateEventCB" body line 7)
+    invoked from within
+"::.memViewer0 _stateEventCB event !state.kernel handle @public@160 state idle kernel digital"
+    (in namespace inscope "::MemViewer" script line 1)
+    invoked from within
+"namespace inscope ::MemViewer {::.memViewer0 _stateEventCB} event !state.kernel handle @public@160 state idle kernel digital"
+ 
+*** Message Type: info ***
+When: Thu May 29 09:03:13 AM -03 2025
+SimVision Exit.
+ 

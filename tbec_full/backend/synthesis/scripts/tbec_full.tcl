@@ -24,7 +24,7 @@ set INTERCONNECT_MODE ple
 # MAIN Custom Variables to be used in SDC (constraints file)
 #-----------------------------------------------------------------------------
 set MAIN_CLOCK_NAME clk
-set MAIN_RST_NAME rst_n
+set MAIN_RST_NAME rst
 set BEST_LIB_OPERATING_CONDITION PVT_1P32V_0C
 set WORST_LIB_OPERATING_CONDITION PVT_0P9V_125C
 set period_clk 50.0  ;# (100 ns = 10 MHz) (10 ns = 100 MHz) (50 ns = 20 MHz) (1 ns = 1 GHz)
@@ -61,7 +61,7 @@ source ${SCRIPT_DIR}/common/tech.tcl
 # Analyze RTL source (manually set; file_list.tcl is not covered in ELC1054)
 #-----------------------------------------------------------------------------
 set_db init_hdl_search_path "${DEV_DIR} ${FRONTEND_DIR}"
-set rtl_files {tbec_full.sv tbec_decoder.sv tbec_encoder.sv tbec_memory.sv} 
+set rtl_files {tbec_full.sv tbec_decoder.sv tbec_encoder.sv} 
 puts $rtl_files
 read_hdl -sv $rtl_files
 

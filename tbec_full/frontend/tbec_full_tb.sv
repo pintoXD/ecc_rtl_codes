@@ -1,5 +1,4 @@
 //Expected output: 16'b1110000111110000 == 16'hE1F0
-`timescale 1ns/10ps
 module tbec_full_tb ();
     
     logic clk;
@@ -11,7 +10,7 @@ module tbec_full_tb ();
 
     // Instantiate the DUT
     tbec_full dut (
-        .tbec_clk(clk),
+        .clk(clk),
         .tbec_addr(mock_addr),
         .data_in(mock_data_in),
         .mem_we(mem_we),
@@ -40,7 +39,7 @@ module tbec_full_tb ();
         mem_we = 1;
         mock_addr = 8'h01;
         mock_data_in = 16'hE1F0;
-        #10;
+        #20;
         mem_we = 0; // Disable write after first write
         #100;
 
