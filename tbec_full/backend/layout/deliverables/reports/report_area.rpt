@@ -1,3 +1,5 @@
     Hinst Name       Module Name          Inst Count           Total Area
 ----------------------------------------------------------------------
-tbec_encoder                                      24              112.176
+tbec_full                                        941             3055.428
+ tbec_dec_inst       tbec_decoder                114              250.686
+ tbec_enc_inst       tbec_encoder                 72              134.064

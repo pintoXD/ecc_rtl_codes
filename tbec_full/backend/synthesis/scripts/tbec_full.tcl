@@ -79,8 +79,8 @@ check_library
 #-----------------------------------------------------------------------------
 # Constraints
 #-----------------------------------------------------------------------------
-# read_sdc ${BACKEND_DIR}/synthesis/constraints/${HDL_NAME}.sdc
-# report timing -lint
+read_sdc ${BACKEND_DIR}/synthesis/constraints/${HDL_NAME}.sdc
+report timing -lint
 # gui_show
 
 #-----------------------------------------------------------------------------
