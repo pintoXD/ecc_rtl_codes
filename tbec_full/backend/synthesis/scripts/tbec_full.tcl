@@ -61,7 +61,7 @@ source ${SCRIPT_DIR}/common/tech.tcl
 # Analyze RTL source (manually set; file_list.tcl is not covered in ELC1054)
 #-----------------------------------------------------------------------------
 set_db init_hdl_search_path "${DEV_DIR} ${FRONTEND_DIR}"
-set rtl_files {tbec_full.sv tbec_decoder.sv tbec_encoder.sv} 
+set rtl_files {tbec_full.sv tbec_decoder.sv tbec_encoder.sv tbec_memory.sv}
 puts $rtl_files
 read_hdl -sv $rtl_files
 

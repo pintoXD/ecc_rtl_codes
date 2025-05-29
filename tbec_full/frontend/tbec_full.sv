@@ -10,7 +10,7 @@ module tbec_full (
 
     logic [31:0] tbec_enc_out_word;
     logic [31:0] tbec_dec_in_word;
-    logic [31:0] mem_data [7:0];
+    // logic [31:0] mem_data [7:0];
 
     // Instantiate the Encoder
     tbec_encoder tbec_enc_inst (
@@ -26,21 +26,28 @@ module tbec_full (
     .error_code(out_error_code)
     );
 
+    tbec_memory dut (
+        .clk(clk),
+        .we(mem_we),
+        .addr(tbec_addr),
+        .data_in(tbec_enc_out_word),
+        .data_out(tbec_dec_in_word)
+    );
 
-    always_ff @(posedge clk) begin
-        if (rst) begin
-            // Reset memory data to zero when rst is high
-            for (int i = 0; i < 8; i++) begin
-                mem_data[i] <= 32'h00000000;
-            end
-        end else begin
-            if (mem_we) begin
-                mem_data[tbec_addr[7:0]] <= tbec_enc_out_word;
-            end
-        end
-    end
+    // always_ff @(posedge clk) begin
+    //     if (rst) begin
+    //         // Reset memory data to zero when rst is high
+    //         for (int i = 0; i < 8; i++) begin
+    //             mem_data[i] <= 32'h00000000;
+    //         end
+    //     end else begin
+    //         if (mem_we) begin
+    //             mem_data[tbec_addr[7:0]] <= tbec_enc_out_word;
+    //         end
+    //     end
+    // end
 
-    assign tbec_dec_in_word = mem_data[tbec_addr[7:0]];
+    // assign tbec_dec_in_word = mem_data[tbec_addr[7:0]];
 
 
 endmodule
