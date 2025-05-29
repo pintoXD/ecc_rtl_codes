@@ -15,6 +15,7 @@ module tbec_full (
     // Instantiate the Encoder
     tbec_encoder tbec_enc_inst (
         .in_word(data_in),
+        .rst(rst),
         .encoded_word(tbec_enc_out_word)
     );
 
@@ -27,8 +28,15 @@ module tbec_full (
 
 
     always_ff @(posedge clk) begin
-        if (mem_we) begin
-            mem_data[tbec_addr[7:0]] <= tbec_enc_out_word;
+        if (rst) begin
+            // Reset memory data to zero when rst is high
+            for (int i = 0; i < 8; i++) begin
+                mem_data[i] <= 32'h00000000;
+            end
+        end else begin
+            if (mem_we) begin
+                mem_data[tbec_addr[7:0]] <= tbec_enc_out_word;
+            end
         end
     end
 

@@ -1,7 +1,7 @@
 //Expected output: 16'b1110000111110000 == 16'hE1F0
 module tbec_full_tb ();
     
-    logic clk;
+    logic clk, rst;
     logic [7:0] mock_addr;
     logic [15:0] mock_data_in;
     logic mem_we;
@@ -11,6 +11,7 @@ module tbec_full_tb ();
     // Instantiate the DUT
     tbec_full dut (
         .clk(clk),
+        .rst(rst),
         .tbec_addr(mock_addr),
         .data_in(mock_data_in),
         .mem_we(mem_we),
@@ -29,10 +30,16 @@ module tbec_full_tb ();
     initial begin
         // Initialize inputs
         mem_we = 0;
+        rst = 1; // Start with reset high
         mock_addr = 8'h00;
         mock_data_in = 16'h0000;
 
         // Wait for the clock to stabilize
+        #10;
+
+        // Release reset
+        rst = 0; // Set reset low to start normal operation
+        
         #10;
 
         // Write to memory
