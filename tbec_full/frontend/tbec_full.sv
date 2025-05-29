@@ -9,10 +9,10 @@ module tbec_full (
 );
 
     logic [31:0] tbec_enc_out_word;
-    // logic [31:0] tbec_mem_data_in;
+    logic [31:0] tbec_mem_data_in;
 
     logic [31:0] tbec_dec_in_word;
-    // logic [31:0] tbec_mem_data_out;
+    logic [31:0] tbec_mem_data_out;
 
     // Instantiate the Encoder
     tbec_encoder tbec_enc_inst (
@@ -32,8 +32,8 @@ module tbec_full (
         .clk(tbec_clk),
         .we(mem_we),
         .addr(tbec_addr),
-        .data_in(tbec_enc_out_word),
-        .data_out(tbec_dec_in_word)
+        .data_in(tbec_mem_data_in),
+        .data_out(tbec_mem_data_out)
     );
 
     // always_comb begin
@@ -46,12 +46,13 @@ module tbec_full (
     //     end
     // end
 
-    always_ff @(posedge clk ) begin
+    always_ff @(posedge tbec_clk ) begin
         if (rst) begin
             tbec_enc_out_word <= 32'h00; // Reset encoder output
             tbec_dec_in_word <= 32'h00; // Reset decoder input
         end else begin
-            
+            tbec_mem_data_in <= tbec_enc_out_word; // Pass encoded word to memory
+            tbec_dec_in_word <= tbec_mem_data_out; // Pass memory output to decoder
         end
         
     end
